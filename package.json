@@ -1,0 +1,24 @@
+{
+  "name": "thumb-generator",
+  "version": "1.0.0",
+  "description": "Generates Thumbnails",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec 'npm test'"
+  },
+  "author": "Zablah <miguel12979@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "fluent-ffmpeg": "^2.1.2",
+    "multer": "^1.3.0"
+  },
+  "devDependencies": {
+    "expect": "^23.2.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
+  }
+}
