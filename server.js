@@ -1,8 +1,12 @@
 const express = require('express');
 const cors =  require('cors');
 
-// setup
+// upload file middle ware
 let {upload} = require('./utils/multer');
+// Thumb creation
+const {createThumbnail} = require('./utils/videoThumb');
+
+// Port Set up
 const port = process.env.PORT || 3000;
 
 var app = express();
@@ -18,12 +22,29 @@ app.get('/', (req, res) => {
     ]);
 });
 
-app.post('/thumb/video', upload, async (req, res) => {
+app.post('/thumb/video', upload, (req, res) => {
     if(req.fileValidationError)
         return res.send(req.fileValidationError).status(400);
 
-    console.log(req.file, 'file');
-    res.send("works");
+    var newFile = {
+        fullName: req.file.filename,
+        name: req.file.filename.substring(0, req.file.filename.indexOf('.')),
+        ext: req.fileExt
+    }
+
+    // Testing
+    // console.log(req.file, 'file');
+    // console.log(newFile, 'newFile');
+
+    // Create thumb
+    createThumbnail(newFile).then((thumb) => {
+        res.send(thumb);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400);
+    });
+
+
 });
 
 app.listen(port, () => {

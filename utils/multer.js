@@ -19,7 +19,8 @@ var upload = multer({ storage: storage,
             req.fileValidationError = "Forbidden extension";
             return callback(null, false, req.fileValidationError);
         }
-        callback(null, true)
+        req.fileExt = ext;
+        callback(null, true, req.fileExt);
     }
 }).single('file');
 
