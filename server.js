@@ -4,7 +4,7 @@ const cors =  require('cors');
 // upload file middle ware
 let {upload} = require('./utils/multer');
 // Thumb creation
-const {createThumbnail} = require('./utils/videoThumb');
+const {createThumbnail} = require('./utils/createThumb');
 
 // Port Set up
 const port = process.env.PORT || 3000;
@@ -29,7 +29,7 @@ app.post('/thumb/video', upload, (req, res) => {
     var newFile = {
         fullName: req.file.filename,
         name: req.file.filename.substring(0, req.file.filename.indexOf('.')),
-        ext: req.fileExt
+        ext: req.fileExt.toLowerCase()
     }
     // Create thumb
     createThumbnail(newFile).then((thumb) => {
@@ -38,7 +38,6 @@ app.post('/thumb/video', upload, (req, res) => {
         console.log(err);
         res.status(400);
     });
-
 
 });
 
