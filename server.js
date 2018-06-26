@@ -31,11 +31,6 @@ app.post('/thumb/video', upload, (req, res) => {
         name: req.file.filename.substring(0, req.file.filename.indexOf('.')),
         ext: req.fileExt
     }
-
-    // Testing
-    // console.log(req.file, 'file');
-    // console.log(newFile, 'newFile');
-
     // Create thumb
     createThumbnail(newFile).then((thumb) => {
         res.send(thumb);
